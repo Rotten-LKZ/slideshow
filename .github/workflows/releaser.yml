@@ -4,6 +4,10 @@ on:
   release:
     tags: [created]
 
+permissions:
+  contents: write
+  packages: write
+
 jobs:
   releaser:
     runs-on: ubuntu-latest
