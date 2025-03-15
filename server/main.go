@@ -25,9 +25,10 @@ type Basic struct {
 }
 
 type Anime struct {
-	Duration        int    `yaml:"duration"`
-	AnimeDuration   int    `yaml:"anime_duration"`
-	BackgroundImage string `yaml:"background_image"`
+	Duration           int    `yaml:"duration"`
+	AnimeDuration      int    `yaml:"anime_duration"`
+	BackgroundImage    string `yaml:"background_image"`
+	ShowDisplayingInfo bool   `yaml:"show_displaying_info"`
 }
 
 func main() {

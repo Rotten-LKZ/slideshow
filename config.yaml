@@ -7,3 +7,4 @@ anime:
     duration: 3000
     anime_duration: 300
     background_image: './bg.png'
+    show_displaying_info: true

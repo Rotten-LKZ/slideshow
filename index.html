@@ -27,6 +27,9 @@
                 const config = data['AnimeConfig/']
                 DURATION = config.Duration
                 ANIME_DURATION = config.AnimeDuration
+                if (!config.ShowDisplayingInfo) {
+                    document.querySelector('.info').style.display = 'none'
+                }
                 document.querySelector('body').style.backgroundImage = `url(${config.BackgroundImage})`
                 await parseDirectory(data)
                 location.reload()
