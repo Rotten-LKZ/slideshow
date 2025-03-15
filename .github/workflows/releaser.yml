@@ -30,3 +30,4 @@ jobs:
           binary_name: server
           goversion: 1.22
           extra_files: index.html style.css config.yaml README.md
+          asset_name: slideshow-${RELEASE_TAG}-${GOOS}-${GOARCH}
