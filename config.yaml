@@ -1,5 +1,5 @@
 basic:
-    images_path: './images'
+    images_path: 'D:\Dev\Projects\rotcool\tools\slideshow\Test'
     url: 'http://127.0.0.1'
     port: 5000
 
