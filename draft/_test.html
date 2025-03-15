@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slideshow</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div class="info">高三12班 xxx (1/2)</div>
+    <div class="card">
+        <div class="list">
+            <img src="http://127.0.0.1:5000/g/VOCALOID/初音ミク/123.jpg" alt="">
+            <img src="http://127.0.0.1:5000/g/VOCALOID/初音ミク/2.jpg" alt="">
+            <img src="http://127.0.0.1:5000/g/VOCALOID/初音ミク/miku.jpg" alt="">
+        </div>
+        <div class="show">
+            <img src="http://127.0.0.1:5000/g/VOCALOID/初音ミク/123.jpg" alt="">
+        </div>
+    </div>
+    <script>
+        const serverUrl = 'http://127.0.0.1:5000'
+        fetch(`${serverUrl}/list`)
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+            })
+    </script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+basic:
+    images_path: './images'
+    url: 'http://127.0.0.1'
+    port: 5000
+
+anime:
+    duration: 3000
+    anime_duration: 300
+    background_image: './bg.png'

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slideshow</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div class="info"></div>
+    <div class="card">
+        <div class="show">
+        </div>
+    </div>
+    <script>
+        const serverUrl = ''
+
+
+        
+        let ANIME_DURATION = 400
+        let DURATION = 1000
+        let baseUrl = 'http://127.0.0.1:5000/g/'
+        fetch(`${serverUrl}/list`)
+            .then(res => res.json())
+            .then(async data => {
+                baseUrl = data['BaseUrl/']
+                const config = data['AnimeConfig/']
+                DURATION = config.Duration
+                ANIME_DURATION = config.AnimeDuration
+                document.querySelector('body').style.backgroundImage = `url(${config.BackgroundImage})`
+                await parseDirectory(data)
+                location.reload()
+            })
+
+        let PARENT = []
+        async function parseDirectory(data) {
+            const keys = Object.keys(data)
+            for(let i = 0;i < keys.length;i++) {
+                const key = keys[i]
+                if (key === 'files/') {
+                    // 一定是数组了
+                    await showImage(data[key], data[key].length, PARENT, 0)
+                    PARENT.splice(-1, 1)
+                } else if (!key.endsWith('/')) {
+                    PARENT.push(key)
+                    
+                    if (data[key]['files/'] === undefined) {
+                        showText(PARENT.join(' '))
+                        await sleep(DURATION)
+                    }
+                    await parseDirectory(data[key], PARENT, DURATION)
+                }
+            }
+        }
+
+        async function showImage(imgs, total, parent, index) {
+            document.querySelector('.show').innerHTML = ''
+            document.querySelector('.info').innerHTML = `${parent.join(' ')} (${index + 1}/${total})`
+            const img = document.createElement('img')
+            img.src = getImgSrc(parent, imgs[index])
+            img.style.animationName = 'fadeIn'
+            img.style.animationDuration = `${ANIME_DURATION}ms`
+            document.querySelector('.show').appendChild(img)
+
+            await sleep(DURATION + ANIME_DURATION)
+
+            img.style.animationName = 'fadeOut'
+            // -10 防止闪动
+            await sleep(ANIME_DURATION - 10)
+            img.remove()
+            if (index + 1 < total) {
+                await showImage(imgs, total, parent, index + 1);
+            }
+        }
+
+        function showText(txt) {
+            document.querySelector('.info').innerHTML = ''
+            document.querySelector('.show').innerHTML = `<span>${txt}</span>`
+        }
+
+        const getImgSrc = (parent, filename) => parent.length === 0 ? `${baseUrl}${filename}` : `${baseUrl}${parent.join('/')}/${filename}`
+        const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
+    </script>
+</body>
+</html>
