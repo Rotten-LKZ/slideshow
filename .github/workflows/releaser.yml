@@ -20,8 +20,8 @@ jobs:
         uses: wangyoucao577/go-release-action@v1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          goos: [linux, windows, darwin]
-          goarch: [amd64, arm64]
+          goos: linux darwin windows
+          goarch: amd64 arm64
           project_path: ./server
           binary_name: server
           goversion: 1.22
