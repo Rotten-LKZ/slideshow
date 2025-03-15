@@ -11,6 +11,10 @@ permissions:
 jobs:
   releaser:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        goos: [linux, darwin, windows]
+        goarch: [amd64, arm64]
 
     steps:
       - name: Checkout
@@ -20,8 +24,8 @@ jobs:
         uses: wangyoucao577/go-release-action@v1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          goos: linux darwin windows
-          goarch: amd64 arm64
+          goos: ${{ matrix.goos }}
+          goarch: ${{ matrix.goarch }}
           project_path: ./server
           binary_name: server
           goversion: 1.22
